@@ -56,27 +56,24 @@ layers depend only on layers **below them**, but not above.
 
 ## Project structure (only the important bits)
 
-- `app` - **Frameworks & Drivers Layer** - basically everything Next.js (pages,
-  server actions, components, styles etc...) or whatever "consumes" the app's
-  logic
-- `di` - Dependency Injection - a folder where we setup the DI container and the
-  modules
-- `drizzle` - Everything DB - initializing the DB client, defining schema,
-  migrations
-- `src` - The "root" of the system
-  - `application` - **Application Layer** - holds use cases and interfaces for
-    repositories and services
-  - `entities` - **Entities Layer** - holds models and custom errors
-  - `infrastructure` - **Infrastructure Layer** - holds implementations of
-    repositories and services, and pulls in the interfaces from `application`
-  - `interface-adapters` - **Interface Adapters Layer** - holds controllers that
-    serve as an entry point to the system (used in Frameworks & Drivers layer to
-    interact with the system)
-- `tests` - Unit tests live here - the `unit` subfolder's structure matches
-  `src`
-- `.eslintrc.json` - Where the `eslint-plugin-boundaries` plugin is defined -
-  _this stops you from breaking the dependency rule_
-- `vitest.config.ts` - Take note of how the `@` alias is defined!
+- `apps/web` - the Next.js application (**Frameworks & Drivers Layer**)
+  - `app` - pages, server actions, and UI components that consume the domain
+    logic
+  - `di` - Dependency Injection container and modules wiring the app together
+  - `drizzle` - database client initialisation, schema, and migrations
+  - `src/infrastructure` - concrete implementations of repositories and
+    services that integrate with framework and database tooling
+  - `tests` - unit tests for the web app, mirroring the structure of the
+    reusable core package
+  - `.eslintrc.json`, `vitest.config.ts`, `tailwind.config.ts`, etc. - tooling
+    configuration scoped to the web application
+- `packages/core` - reusable, framework-agnostic application logic
+  - `application` - **Application Layer** - use cases plus repository and
+    service interfaces
+  - `entities` - **Entities Layer** - domain models and custom errors
+  - `interface-adapters` - **Interface Adapters Layer** - controllers used by
+    the web app (or any other consumer)
+- `turbo.json` & root `package.json` - Turborepo setup coordinating workspaces
 
 ## Layers explanation
 
