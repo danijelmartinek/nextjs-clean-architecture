@@ -37,15 +37,16 @@ export class TodosRepository implements ITodosRepository {
         try {
           const payload = await getPayloadClient();
 
-          const existing = await payload.find<TodoDocument>({
+          const existing = await payload.find({
             collection: COLLECTION,
             limit: 1,
             sort: '-todoId',
           });
 
-          const nextId = (existing.docs[0]?.todoId ?? 0) + 1;
+          const existingDocs = existing.docs as TodoDocument[];
+          const nextId = (existingDocs[0]?.todoId ?? 0) + 1;
 
-          const created = await payload.create<TodoDocument>({
+          const created = (await payload.create({
             collection: COLLECTION,
             data: {
               todoId: nextId,
@@ -53,7 +54,7 @@ export class TodosRepository implements ITodosRepository {
               completed: todo.completed,
               userId: todo.userId,
             },
-          });
+          })) as TodoDocument;
 
           return toTodo(created);
         } catch (err) {
@@ -70,7 +71,7 @@ export class TodosRepository implements ITodosRepository {
       async () => {
         try {
           const payload = await getPayloadClient();
-          const result = await payload.find<TodoDocument>({
+          const result = await payload.find({
             collection: COLLECTION,
             where: {
               todoId: {
@@ -80,7 +81,8 @@ export class TodosRepository implements ITodosRepository {
             limit: 1,
           });
 
-          const todo = result.docs[0];
+          const docs = result.docs as TodoDocument[];
+          const todo = docs[0];
 
           return todo ? toTodo(todo) : undefined;
         } catch (err) {
@@ -97,7 +99,7 @@ export class TodosRepository implements ITodosRepository {
       async () => {
         try {
           const payload = await getPayloadClient();
-          const result = await payload.find<TodoDocument>({
+          const result = await payload.find({
             collection: COLLECTION,
             where: {
               userId: {
@@ -107,7 +109,9 @@ export class TodosRepository implements ITodosRepository {
             sort: 'todoId',
           });
 
-          return result.docs.map(toTodo);
+          const docs = result.docs as TodoDocument[];
+
+          return docs.map(toTodo);
         } catch (err) {
           this.crashReporterService.report(err);
           throw err; // TODO: convert to Entities error
@@ -126,7 +130,7 @@ export class TodosRepository implements ITodosRepository {
       async () => {
         try {
           const payload = await getPayloadClient();
-          const existing = await payload.find<TodoDocument>({
+          const existing = await payload.find({
             collection: COLLECTION,
             where: {
               todoId: {
@@ -136,13 +140,14 @@ export class TodosRepository implements ITodosRepository {
             limit: 1,
           });
 
-          const doc = existing.docs[0];
+          const docs = existing.docs as TodoDocument[];
+          const doc = docs[0];
 
           if (!doc) {
             throw new DatabaseOperationError('Cannot update todo');
           }
 
-          const updated = await payload.update<TodoDocument>({
+          const updated = (await payload.update({
             collection: COLLECTION,
             id: doc.id,
             data: {
@@ -151,7 +156,7 @@ export class TodosRepository implements ITodosRepository {
               completed: input.completed ?? doc.completed,
               userId: doc.userId,
             },
-          });
+          })) as TodoDocument;
 
           return toTodo(updated);
         } catch (err) {
@@ -168,7 +173,7 @@ export class TodosRepository implements ITodosRepository {
       async () => {
         try {
           const payload = await getPayloadClient();
-          const existing = await payload.find<TodoDocument>({
+          const existing = await payload.find({
             collection: COLLECTION,
             where: {
               todoId: {
@@ -178,7 +183,8 @@ export class TodosRepository implements ITodosRepository {
             limit: 1,
           });
 
-          const doc = existing.docs[0];
+          const docs = existing.docs as TodoDocument[];
+          const doc = docs[0];
 
           if (!doc) {
             throw new DatabaseOperationError('Cannot delete todo');

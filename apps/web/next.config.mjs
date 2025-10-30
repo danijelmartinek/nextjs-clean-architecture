@@ -16,6 +16,7 @@ const nextConfig = {
         'node:diagnostics_channel': 'diagnostics_channel',
         'node:dns': 'dns',
         'node:fs': 'fs',
+        'node:path': 'path',
       };
 
       config.externals = config.externals ?? [];

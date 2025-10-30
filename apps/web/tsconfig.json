@@ -9,7 +9,11 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@repo/core": ["../../packages/core/src/index.ts"],
+      "@repo/core/*": ["../../packages/core/src/*"],
+      "@repo/payload": ["../../packages/payload/src/index.ts"],
+      "@repo/payload/*": ["../../packages/payload/src/*"]
     }
   },
   "include": [

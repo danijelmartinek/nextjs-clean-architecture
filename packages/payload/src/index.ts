@@ -1,3 +1,3 @@
 export { getPayloadClient } from './client';
-export { payloadConfig } from './config';
+export { getPayloadConfig } from './config';
 export { createPayloadLuciaAdapter } from './lucia-adapter';

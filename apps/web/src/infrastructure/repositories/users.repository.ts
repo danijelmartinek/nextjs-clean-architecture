@@ -36,7 +36,7 @@ export class UsersRepository implements IUsersRepository {
       async () => {
         try {
           const payload = await getPayloadClient();
-          const result = await payload.find<UserDocument>({
+          const result = await payload.find({
             collection: COLLECTION,
             where: {
               appUserId: {
@@ -46,7 +46,8 @@ export class UsersRepository implements IUsersRepository {
             limit: 1,
           });
 
-          const doc = result.docs[0];
+          const docs = result.docs as UserDocument[];
+          const doc = docs[0];
 
           return doc ? toUser(doc) : undefined;
         } catch (err) {
@@ -62,7 +63,7 @@ export class UsersRepository implements IUsersRepository {
       async () => {
         try {
           const payload = await getPayloadClient();
-          const result = await payload.find<UserDocument>({
+          const result = await payload.find({
             collection: COLLECTION,
             where: {
               username: {
@@ -72,7 +73,8 @@ export class UsersRepository implements IUsersRepository {
             limit: 1,
           });
 
-          const doc = result.docs[0];
+          const docs = result.docs as UserDocument[];
+          const doc = docs[0];
 
           return doc ? toUser(doc) : undefined;
         } catch (err) {
@@ -98,14 +100,14 @@ export class UsersRepository implements IUsersRepository {
             password_hash,
           };
           const payload = await getPayloadClient();
-          const created = await payload.create<UserDocument>({
+          const created = (await payload.create({
             collection: COLLECTION,
             data: {
               appUserId: newUser.id,
               username: newUser.username,
               password_hash: newUser.password_hash,
             },
-          });
+          })) as UserDocument;
 
           if (!created) {
             throw new DatabaseOperationError('Cannot create user.');
