@@ -13,7 +13,8 @@
       "@repo/core": ["../../packages/core/src/index.ts"],
       "@repo/core/*": ["../../packages/core/src/*"],
       "@repo/payload": ["../../packages/payload/src/index.ts"],
-      "@repo/payload/*": ["../../packages/payload/src/*"]
+      "@repo/payload/*": ["../../packages/payload/src/*"],
+      "react/compiler-runtime": ["./polyfills/react-compiler-runtime.ts"]
     }
   },
   "include": [

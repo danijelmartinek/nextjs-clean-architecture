@@ -1,14 +1,36 @@
+import { fileURLToPath } from 'url';
+
 import { withSentryConfig } from '@sentry/nextjs';
+
+const compilerRuntimePolyfill = fileURLToPath(
+  new URL('./polyfills/react-compiler-runtime.ts', import.meta.url),
+);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@repo/core', '@repo/payload'],
+  transpilePackages: ['@repo/core', '@repo/payload', '@payloadcms/next', '@payloadcms/ui'],
   experimental: {
-    serverComponentsExternalPackages: ['payload', '@payloadcms/db-sqlite', 'undici'],
+    serverComponentsExternalPackages: [
+      'payload',
+      '@payloadcms/db-sqlite',
+      '@payloadcms/graphql',
+      '@payloadcms/translations',
+      'graphql',
+      'graphql-http',
+      'graphql-playground-html',
+      'http-status',
+      'qs-esm',
+      'undici',
+    ],
   },
   webpack(config, { isServer }) {
+    config.resolve = config.resolve ?? {};
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'react/compiler-runtime': compilerRuntimePolyfill,
+    };
+
     if (isServer) {
-      config.resolve = config.resolve ?? {};
       config.resolve.alias = {
         ...config.resolve.alias,
         'node:console': 'console',
@@ -23,6 +45,13 @@ const nextConfig = {
       config.externals.push({
         payload: 'commonjs payload',
         '@payloadcms/db-sqlite': 'commonjs @payloadcms/db-sqlite',
+        '@payloadcms/graphql': 'commonjs @payloadcms/graphql',
+        '@payloadcms/translations': 'commonjs @payloadcms/translations',
+        graphql: 'commonjs graphql',
+        'graphql-http': 'commonjs graphql-http',
+        'graphql-playground-html': 'commonjs graphql-playground-html',
+        'http-status': 'commonjs http-status',
+        'qs-esm': 'commonjs qs-esm',
         undici: 'commonjs undici',
       });
     }

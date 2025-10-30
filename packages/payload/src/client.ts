@@ -5,9 +5,9 @@ let cachedPayload: PayloadClient | null = null;
 let payloadPromise: Promise<PayloadClient> | null = null;
 
 async function initializePayload(): Promise<PayloadClient> {
-  // @ts-expect-error -- payload ships type definitions incompatible with the bundler resolver
+  // @ts-ignore -- payload ships type definitions incompatible with the bundler resolver
   const payloadModule = await import('payload');
-  const payload = (payloadModule.default ?? payloadModule) as PayloadClient;
+  const payload = (payloadModule.default ?? payloadModule) as unknown as PayloadClient;
   const config = await getPayloadConfig();
 
   if (!process.env.PAYLOAD_SECRET) {
