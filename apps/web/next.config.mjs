@@ -3,6 +3,31 @@ import { withSentryConfig } from '@sentry/nextjs';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ['@repo/core', '@repo/payload'],
+  experimental: {
+    serverComponentsExternalPackages: ['payload', '@payloadcms/db-sqlite', 'undici'],
+  },
+  webpack(config, { isServer }) {
+    if (isServer) {
+      config.resolve = config.resolve ?? {};
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        'node:console': 'console',
+        'node:crypto': 'crypto',
+        'node:diagnostics_channel': 'diagnostics_channel',
+        'node:dns': 'dns',
+        'node:fs': 'fs',
+      };
+
+      config.externals = config.externals ?? [];
+      config.externals.push({
+        payload: 'commonjs payload',
+        '@payloadcms/db-sqlite': 'commonjs @payloadcms/db-sqlite',
+        undici: 'commonjs undici',
+      });
+    }
+
+    return config;
+  },
 };
 
 export default withSentryConfig(nextConfig, {
