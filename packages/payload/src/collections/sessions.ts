@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload';
+import type { CollectionConfig } from '../types/payload';
 
 export const sessionsCollection: CollectionConfig = {
   slug: 'sessions',

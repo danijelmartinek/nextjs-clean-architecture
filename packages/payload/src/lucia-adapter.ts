@@ -25,7 +25,7 @@ function mapUser(doc: any): DatabaseUser {
 
 async function findSessionDocument(sessionId: string) {
   const payload = await getPayloadClient();
-  const result = await payload.find({
+  const result = await payload.find<Record<string, any>>({
     collection: SESSIONS_COLLECTION,
     where: {
       sessionId: {
@@ -40,7 +40,7 @@ async function findSessionDocument(sessionId: string) {
 
 async function findUserDocument(userId: string) {
   const payload = await getPayloadClient();
-  const result = await payload.find({
+  const result = await payload.find<Record<string, any>>({
     collection: USERS_COLLECTION,
     where: {
       appUserId: {
@@ -73,7 +73,7 @@ export function createPayloadLuciaAdapter(): Adapter {
 
     async getUserSessions(userId) {
       const payload = await getPayloadClient();
-      const result = await payload.find({
+      const result = await payload.find<Record<string, any>>({
         collection: SESSIONS_COLLECTION,
         where: {
           userId: {
@@ -147,7 +147,7 @@ export function createPayloadLuciaAdapter(): Adapter {
 
     async deleteUserSessions(userId) {
       const payload = await getPayloadClient();
-      const result = await payload.find({
+      const result = await payload.find<Record<string, any>>({
         collection: SESSIONS_COLLECTION,
         where: {
           userId: {
@@ -168,7 +168,7 @@ export function createPayloadLuciaAdapter(): Adapter {
 
     async deleteExpiredSessions() {
       const payload = await getPayloadClient();
-      const result = await payload.find({
+      const result = await payload.find<Record<string, any>>({
         collection: SESSIONS_COLLECTION,
         where: {
           expiresAt: {

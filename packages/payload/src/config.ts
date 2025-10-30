@@ -1,12 +1,9 @@
-import path from 'path';
-
-import type { CollectionConfig } from 'payload';
-
 import { sessionsCollection } from './collections/sessions';
 import { todosCollection } from './collections/todos';
 import { usersCollection } from './collections/users';
+import type { CollectionConfig } from './types/payload';
 
-const defaultDatabaseFile = path.resolve(process.cwd(), 'payload.sqlite');
+const defaultDatabaseFile = process.env.PAYLOAD_DATABASE_FILE ?? 'payload.sqlite';
 
 type PayloadConfig = {
   db: unknown;
@@ -19,6 +16,7 @@ let cachedConfig: PayloadConfig | null = null;
 let configPromise: Promise<PayloadConfig> | null = null;
 
 async function buildPayloadConfig(): Promise<PayloadConfig> {
+  // @ts-expect-error -- sqlite adapter ships ESM entrypoints without bundler-compatible types
   const { sqliteAdapter } = await import('@payloadcms/db-sqlite');
 
   const databaseUrl = process.env.PAYLOAD_DATABASE_URL ?? `file:${defaultDatabaseFile}`;

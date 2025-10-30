@@ -11,8 +11,10 @@ export default defineConfig({
   },
   plugins: [env()],
   resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./', import.meta.url)),
-    },
+    alias: [
+      { find: '@', replacement: fileURLToPath(new URL('./', import.meta.url)) },
+      { find: '@repo/core', replacement: fileURLToPath(new URL('../../packages/core/src', import.meta.url)) },
+      { find: '@repo/payload', replacement: fileURLToPath(new URL('../../packages/payload/src', import.meta.url)) },
+    ],
   },
 });

@@ -1,13 +1,13 @@
-import type { Payload } from 'payload';
-
 import { getPayloadConfig } from './config';
+import type { PayloadClient } from './types/payload';
 
-let cachedPayload: Payload | null = null;
-let payloadPromise: Promise<Payload> | null = null;
+let cachedPayload: PayloadClient | null = null;
+let payloadPromise: Promise<PayloadClient> | null = null;
 
-async function initializePayload(): Promise<Payload> {
+async function initializePayload(): Promise<PayloadClient> {
+  // @ts-expect-error -- payload ships type definitions incompatible with the bundler resolver
   const payloadModule = await import('payload');
-  const payload = payloadModule.default ?? payloadModule;
+  const payload = (payloadModule.default ?? payloadModule) as PayloadClient;
   const config = await getPayloadConfig();
 
   if (!process.env.PAYLOAD_SECRET) {
@@ -15,7 +15,7 @@ async function initializePayload(): Promise<Payload> {
   }
 
   await payload.init({
-    config: config as any,
+    config,
   });
 
   cachedPayload = payload;
@@ -23,7 +23,7 @@ async function initializePayload(): Promise<Payload> {
   return payload;
 }
 
-export async function getPayloadClient(): Promise<Payload> {
+export async function getPayloadClient(): Promise<PayloadClient> {
   if (cachedPayload) {
     return cachedPayload;
   }
