@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
-import { UnauthenticatedError } from '@nextjs-clean-architecture/core/entities/errors/auth';
-import { InputParseError } from '@nextjs-clean-architecture/core/entities/errors/common';
-import { IInstrumentationService } from '@nextjs-clean-architecture/core/application/services/instrumentation.service.interface';
-import { IAuthenticationService } from '@nextjs-clean-architecture/core/application/services/authentication.service.interface';
-import { ITransactionManagerService } from '@nextjs-clean-architecture/core/application/services/transaction-manager.service.interface';
-import { IToggleTodoUseCase } from '@nextjs-clean-architecture/core/application/use-cases/todos/toggle-todo.use-case';
-import { IDeleteTodoUseCase } from '@nextjs-clean-architecture/core/application/use-cases/todos/delete-todo.use-case';
+import { UnauthenticatedError } from '@repo/core/entities/errors/auth';
+import { InputParseError } from '@repo/core/entities/errors/common';
+import { IInstrumentationService } from '@repo/core/application/services/instrumentation.service.interface';
+import { IAuthenticationService } from '@repo/core/application/services/authentication.service.interface';
+import { ITransactionManagerService } from '@repo/core/application/services/transaction-manager.service.interface';
+import { IToggleTodoUseCase } from '@repo/core/application/use-cases/todos/toggle-todo.use-case';
+import { IDeleteTodoUseCase } from '@repo/core/application/use-cases/todos/delete-todo.use-case';
 
 const inputSchema = z.object({
   dirty: z.array(z.number()),

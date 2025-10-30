@@ -2,7 +2,7 @@ import { createContainer } from '@evyweb/ioctopus';
 
 import { DI_RETURN_TYPES, DI_SYMBOLS } from '@/di/types';
 
-import { IInstrumentationService } from '@nextjs-clean-architecture/core/application/services/instrumentation.service.interface';
+import { IInstrumentationService } from '@repo/core/application/services/instrumentation.service.interface';
 
 import { createMonitoringModule } from '@/di/modules/monitoring.module';
 import { createAuthenticationModule } from '@/di/modules/authentication.module';

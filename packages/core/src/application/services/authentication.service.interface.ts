@@ -1,6 +1,6 @@
-import { Cookie } from '@nextjs-clean-architecture/core/entities/models/cookie';
-import { Session } from '@nextjs-clean-architecture/core/entities/models/session';
-import { User } from '@nextjs-clean-architecture/core/entities/models/user';
+import { Cookie } from '@repo/core/entities/models/cookie';
+import { Session } from '@repo/core/entities/models/session';
+import { User } from '@repo/core/entities/models/user';
 
 export interface IAuthenticationService {
   generateUserId(): string;

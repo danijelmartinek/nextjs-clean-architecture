@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest';
 
 import { getInjection } from '@/di/container';
-import { AuthenticationError } from '@nextjs-clean-architecture/core/entities/errors/auth';
+import { AuthenticationError } from '@repo/core/entities/errors/auth';
 
 const signInUseCase = getInjection('ISignInUseCase');
 

@@ -3,15 +3,15 @@ import { createModule } from '@evyweb/ioctopus';
 import { MockTodosRepository } from '@/src/infrastructure/repositories/todos.repository.mock';
 import { TodosRepository } from '@/src/infrastructure/repositories/todos.repository';
 
-import { createTodoUseCase } from '@nextjs-clean-architecture/core/application/use-cases/todos/create-todo.use-case';
-import { deleteTodoUseCase } from '@nextjs-clean-architecture/core/application/use-cases/todos/delete-todo.use-case';
-import { getTodosForUserUseCase } from '@nextjs-clean-architecture/core/application/use-cases/todos/get-todos-for-user.use-case';
-import { toggleTodoUseCase } from '@nextjs-clean-architecture/core/application/use-cases/todos/toggle-todo.use-case';
+import { createTodoUseCase } from '@repo/core/application/use-cases/todos/create-todo.use-case';
+import { deleteTodoUseCase } from '@repo/core/application/use-cases/todos/delete-todo.use-case';
+import { getTodosForUserUseCase } from '@repo/core/application/use-cases/todos/get-todos-for-user.use-case';
+import { toggleTodoUseCase } from '@repo/core/application/use-cases/todos/toggle-todo.use-case';
 
-import { bulkUpdateController } from '@nextjs-clean-architecture/core/interface-adapters/controllers/todos/bulk-update.controller';
-import { createTodoController } from '@nextjs-clean-architecture/core/interface-adapters/controllers/todos/create-todo.controller';
-import { getTodosForUserController } from '@nextjs-clean-architecture/core/interface-adapters/controllers/todos/get-todos-for-user.controller';
-import { toggleTodoController } from '@nextjs-clean-architecture/core/interface-adapters/controllers/todos/toggle-todo.controller';
+import { bulkUpdateController } from '@repo/core/interface-adapters/controllers/todos/bulk-update.controller';
+import { createTodoController } from '@repo/core/interface-adapters/controllers/todos/create-todo.controller';
+import { getTodosForUserController } from '@repo/core/interface-adapters/controllers/todos/get-todos-for-user.controller';
+import { toggleTodoController } from '@repo/core/interface-adapters/controllers/todos/toggle-todo.controller';
 
 import { DI_SYMBOLS } from '@/di/types';
 

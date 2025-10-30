@@ -1,12 +1,11 @@
-import { db, Transaction } from '@/drizzle';
-import { ITransactionManagerService } from '@nextjs-clean-architecture/core/application/services/transaction-manager.service.interface';
+import { ITransactionManagerService } from '@repo/core/application/services/transaction-manager.service.interface';
+import { ITransaction } from '@repo/core/entities/models/transaction.interface';
 
 export class TransactionManagerService implements ITransactionManagerService {
   public startTransaction<T>(
-    clb: (tx: Transaction) => Promise<T>,
-    parent?: Transaction
+    clb: (tx: ITransaction) => Promise<T>,
+    _parent?: ITransaction
   ): Promise<T> {
-    const invoker = parent ?? db;
-    return invoker.transaction(clb);
+    return clb({ rollback: () => {} });
   }
 }

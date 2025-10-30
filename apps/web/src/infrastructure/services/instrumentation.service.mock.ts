@@ -1,4 +1,4 @@
-import { IInstrumentationService } from '@nextjs-clean-architecture/core/application/services/instrumentation.service.interface';
+import { IInstrumentationService } from '@repo/core/application/services/instrumentation.service.interface';
 
 export class MockInstrumentationService implements IInstrumentationService {
   startSpan<T>(

@@ -1,5 +1,5 @@
-import { ITransactionManagerService } from '@nextjs-clean-architecture/core/application/services/transaction-manager.service.interface';
-import { ITransaction } from '@nextjs-clean-architecture/core/entities/models/transaction.interface';
+import { ITransactionManagerService } from '@repo/core/application/services/transaction-manager.service.interface';
+import { ITransaction } from '@repo/core/entities/models/transaction.interface';
 
 export class MockTransactionManagerService
   implements ITransactionManagerService

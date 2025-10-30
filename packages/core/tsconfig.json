@@ -10,7 +10,7 @@
     "noEmit": false,
     "noEmitOnError": false,
     "paths": {
-      "@nextjs-clean-architecture/core/*": ["./src/*"]
+      "@repo/core/*": ["./src/*"]
     }
   },
   "include": ["src/**/*"],

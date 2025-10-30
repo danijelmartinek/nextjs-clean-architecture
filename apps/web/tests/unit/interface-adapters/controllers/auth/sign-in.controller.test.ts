@@ -2,8 +2,8 @@ import { expect, it } from 'vitest';
 
 import { getInjection } from '@/di/container';
 import { SESSION_COOKIE } from '@/config';
-import { InputParseError } from '@nextjs-clean-architecture/core/entities/errors/common';
-import { AuthenticationError } from '@nextjs-clean-architecture/core/entities/errors/auth';
+import { InputParseError } from '@repo/core/entities/errors/common';
+import { AuthenticationError } from '@repo/core/entities/errors/auth';
 
 const signInController = getInjection('ISignInController');
 

@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
-import { InputParseError } from '@nextjs-clean-architecture/core/entities/errors/common';
-import { IInstrumentationService } from '@nextjs-clean-architecture/core/application/services/instrumentation.service.interface';
-import { ISignUpUseCase } from '@nextjs-clean-architecture/core/application/use-cases/auth/sign-up.use-case';
+import { InputParseError } from '@repo/core/entities/errors/common';
+import { IInstrumentationService } from '@repo/core/application/services/instrumentation.service.interface';
+import { ISignUpUseCase } from '@repo/core/application/use-cases/auth/sign-up.use-case';
 
 const inputSchema = z
   .object({

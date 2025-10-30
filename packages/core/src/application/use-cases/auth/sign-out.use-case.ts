@@ -1,6 +1,6 @@
-import { Cookie } from '@nextjs-clean-architecture/core/entities/models/cookie';
-import type { IInstrumentationService } from '@nextjs-clean-architecture/core/application/services/instrumentation.service.interface';
-import type { IAuthenticationService } from '@nextjs-clean-architecture/core/application/services/authentication.service.interface';
+import { Cookie } from '@repo/core/entities/models/cookie';
+import type { IInstrumentationService } from '@repo/core/application/services/instrumentation.service.interface';
+import type { IAuthenticationService } from '@repo/core/application/services/authentication.service.interface';
 
 export type ISignOutUseCase = ReturnType<typeof signOutUseCase>;
 

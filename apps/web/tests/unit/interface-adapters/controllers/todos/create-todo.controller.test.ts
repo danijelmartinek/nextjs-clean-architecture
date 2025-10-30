@@ -1,8 +1,8 @@
 import { expect, it, vi } from 'vitest';
 
 import { getInjection } from '@/di/container';
-import { InputParseError } from '@nextjs-clean-architecture/core/entities/errors/common';
-import { UnauthenticatedError } from '@nextjs-clean-architecture/core/entities/errors/auth';
+import { InputParseError } from '@repo/core/entities/errors/common';
+import { UnauthenticatedError } from '@repo/core/entities/errors/auth';
 
 const signInUseCase = getInjection('ISignInUseCase');
 const createTodoController = getInjection('ICreateTodoController');

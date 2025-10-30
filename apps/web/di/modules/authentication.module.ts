@@ -3,13 +3,13 @@ import { createModule } from '@evyweb/ioctopus';
 import { AuthenticationService } from '@/src/infrastructure/services/authentication.service';
 import { MockAuthenticationService } from '@/src/infrastructure/services/authentication.service.mock';
 
-import { signInUseCase } from '@nextjs-clean-architecture/core/application/use-cases/auth/sign-in.use-case';
-import { signUpUseCase } from '@nextjs-clean-architecture/core/application/use-cases/auth/sign-up.use-case';
-import { signOutUseCase } from '@nextjs-clean-architecture/core/application/use-cases/auth/sign-out.use-case';
+import { signInUseCase } from '@repo/core/application/use-cases/auth/sign-in.use-case';
+import { signUpUseCase } from '@repo/core/application/use-cases/auth/sign-up.use-case';
+import { signOutUseCase } from '@repo/core/application/use-cases/auth/sign-out.use-case';
 
-import { signInController } from '@nextjs-clean-architecture/core/interface-adapters/controllers/auth/sign-in.controller';
-import { signOutController } from '@nextjs-clean-architecture/core/interface-adapters/controllers/auth/sign-out.controller';
-import { signUpController } from '@nextjs-clean-architecture/core/interface-adapters/controllers/auth/sign-up.controller';
+import { signInController } from '@repo/core/interface-adapters/controllers/auth/sign-in.controller';
+import { signOutController } from '@repo/core/interface-adapters/controllers/auth/sign-out.controller';
+import { signUpController } from '@repo/core/interface-adapters/controllers/auth/sign-up.controller';
 
 import { DI_SYMBOLS } from '@/di/types';
 

@@ -1,14 +1,29 @@
-import { eq } from 'drizzle-orm';
 import { hash } from 'bcrypt-ts';
 
-import { db } from '@/drizzle';
-import { users } from '@/drizzle/schema';
-import { IUsersRepository } from '@nextjs-clean-architecture/core/application/repositories/users.repository.interface';
-import { DatabaseOperationError } from '@nextjs-clean-architecture/core/entities/errors/common';
-import type { CreateUser, User } from '@nextjs-clean-architecture/core/entities/models/user';
-import type { IInstrumentationService } from '@nextjs-clean-architecture/core/application/services/instrumentation.service.interface';
-import type { ICrashReporterService } from '@nextjs-clean-architecture/core/application/services/crash-reporter.service.interface';
+import { getPayloadClient } from '@repo/payload';
+import { IUsersRepository } from '@repo/core/application/repositories/users.repository.interface';
+import { DatabaseOperationError } from '@repo/core/entities/errors/common';
+import type { CreateUser, User } from '@repo/core/entities/models/user';
+import type { IInstrumentationService } from '@repo/core/application/services/instrumentation.service.interface';
+import type { ICrashReporterService } from '@repo/core/application/services/crash-reporter.service.interface';
 import { PASSWORD_SALT_ROUNDS } from '@/config';
+
+type UserDocument = {
+  id: string;
+  appUserId: string;
+  username: string;
+  password_hash: string;
+};
+
+const COLLECTION = 'users';
+
+function toUser(doc: UserDocument): User {
+  return {
+    id: doc.appUserId,
+    username: doc.username,
+    password_hash: doc.password_hash,
+  };
+}
 
 export class UsersRepository implements IUsersRepository {
   constructor(
@@ -20,20 +35,20 @@ export class UsersRepository implements IUsersRepository {
       { name: 'UsersRepository > getUser' },
       async () => {
         try {
-          const query = db.query.users.findFirst({
-            where: eq(users.id, id),
+          const payload = await getPayloadClient();
+          const result = await payload.find<UserDocument>({
+            collection: COLLECTION,
+            where: {
+              appUserId: {
+                equals: id,
+              },
+            },
+            limit: 1,
           });
 
-          const user = await this.instrumentationService.startSpan(
-            {
-              name: query.toSQL().sql,
-              op: 'db.query',
-              attributes: { 'db.system': 'sqlite' },
-            },
-            () => query.execute()
-          );
+          const doc = result.docs[0];
 
-          return user;
+          return doc ? toUser(doc) : undefined;
         } catch (err) {
           this.crashReporterService.report(err);
           throw err; // TODO: convert to Entities error
@@ -46,20 +61,20 @@ export class UsersRepository implements IUsersRepository {
       { name: 'UsersRepository > getUserByUsername' },
       async () => {
         try {
-          const query = db.query.users.findFirst({
-            where: eq(users.username, username),
+          const payload = await getPayloadClient();
+          const result = await payload.find<UserDocument>({
+            collection: COLLECTION,
+            where: {
+              username: {
+                equals: username,
+              },
+            },
+            limit: 1,
           });
 
-          const user = await this.instrumentationService.startSpan(
-            {
-              name: query.toSQL().sql,
-              op: 'db.query',
-              attributes: { 'db.system': 'sqlite' },
-            },
-            () => query.execute()
-          );
+          const doc = result.docs[0];
 
-          return user;
+          return doc ? toUser(doc) : undefined;
         } catch (err) {
           this.crashReporterService.report(err);
           throw err; // TODO: convert to Entities error
@@ -82,22 +97,21 @@ export class UsersRepository implements IUsersRepository {
             username: input.username,
             password_hash,
           };
-          const query = db.insert(users).values(newUser).returning();
-
-          const [created] = await this.instrumentationService.startSpan(
-            {
-              name: query.toSQL().sql,
-              op: 'db.query',
-              attributes: { 'db.system': 'sqlite' },
+          const payload = await getPayloadClient();
+          const created = await payload.create<UserDocument>({
+            collection: COLLECTION,
+            data: {
+              appUserId: newUser.id,
+              username: newUser.username,
+              password_hash: newUser.password_hash,
             },
-            () => query.execute()
-          );
+          });
 
-          if (created) {
-            return created;
-          } else {
+          if (!created) {
             throw new DatabaseOperationError('Cannot create user.');
           }
+
+          return toUser(created);
         } catch (err) {
           this.crashReporterService.report(err);
           throw err; // TODO: convert to Entities error

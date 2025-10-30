@@ -2,14 +2,14 @@ import { generateIdFromEntropySize, Lucia } from 'lucia';
 import { compare } from 'bcrypt-ts';
 
 import { SESSION_COOKIE } from '@/config';
-import { luciaAdapter } from '@/drizzle';
-import { type IUsersRepository } from '@nextjs-clean-architecture/core/application/repositories/users.repository.interface';
-import { IAuthenticationService } from '@nextjs-clean-architecture/core/application/services/authentication.service.interface';
-import { UnauthenticatedError } from '@nextjs-clean-architecture/core/entities/errors/auth';
-import { Cookie } from '@nextjs-clean-architecture/core/entities/models/cookie';
-import { Session, sessionSchema } from '@nextjs-clean-architecture/core/entities/models/session';
-import { User } from '@nextjs-clean-architecture/core/entities/models/user';
-import type { IInstrumentationService } from '@nextjs-clean-architecture/core/application/services/instrumentation.service.interface';
+import { type IUsersRepository } from '@repo/core/application/repositories/users.repository.interface';
+import { IAuthenticationService } from '@repo/core/application/services/authentication.service.interface';
+import { UnauthenticatedError } from '@repo/core/entities/errors/auth';
+import { Cookie } from '@repo/core/entities/models/cookie';
+import { Session, sessionSchema } from '@repo/core/entities/models/session';
+import { User } from '@repo/core/entities/models/user';
+import type { IInstrumentationService } from '@repo/core/application/services/instrumentation.service.interface';
+import { createPayloadLuciaAdapter } from '@repo/payload';
 
 export class AuthenticationService implements IAuthenticationService {
   private _lucia: Lucia;
@@ -18,7 +18,7 @@ export class AuthenticationService implements IAuthenticationService {
     private readonly _usersRepository: IUsersRepository,
     private readonly _instrumentationService: IInstrumentationService
   ) {
-    this._lucia = new Lucia(luciaAdapter, {
+    this._lucia = new Lucia(createPayloadLuciaAdapter(), {
       sessionCookie: {
         name: SESSION_COOKIE,
         expires: false,

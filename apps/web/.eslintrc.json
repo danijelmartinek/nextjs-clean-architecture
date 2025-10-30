@@ -6,7 +6,8 @@
       "src/**/*",
       "app/**/*",
       "di/**/*",
-      "../../packages/core/src/**/*"
+      "../../packages/core/src/**/*",
+      "../../packages/payload/src/**/*"
     ],
     "boundaries/elements": [
       {
@@ -43,6 +44,11 @@
       },
       {
         "mode": "full",
+        "type": "payload",
+        "pattern": ["../../packages/payload/src/**/*"]
+      },
+      {
+        "mode": "full",
         "type": "infrastructure",
         "pattern": ["src/infrastructure/**/*"]
       },
@@ -76,7 +82,12 @@
           },
           {
             "from": "infrastructure",
-            "allow": ["service-interfaces", "repository-interfaces", "entities"]
+            "allow": [
+              "service-interfaces",
+              "repository-interfaces",
+              "entities",
+              "payload"
+            ]
           },
           {
             "from": "use-cases",

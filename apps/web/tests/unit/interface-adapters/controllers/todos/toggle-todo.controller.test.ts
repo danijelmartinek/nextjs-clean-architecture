@@ -4,8 +4,8 @@ import { getInjection } from '@/di/container';
 import {
   UnauthenticatedError,
   UnauthorizedError,
-} from '@nextjs-clean-architecture/core/entities/errors/auth';
-import { InputParseError } from '@nextjs-clean-architecture/core/entities/errors/common';
+} from '@repo/core/entities/errors/auth';
+import { InputParseError } from '@repo/core/entities/errors/common';
 
 const signInUseCase = getInjection('ISignInUseCase');
 const createTodoUseCase = getInjection('ICreateTodoUseCase');

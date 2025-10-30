@@ -1,7 +1,7 @@
-import { InputParseError } from '@nextjs-clean-architecture/core/entities/errors/common';
-import type { Todo } from '@nextjs-clean-architecture/core/entities/models/todo';
-import type { IInstrumentationService } from '@nextjs-clean-architecture/core/application/services/instrumentation.service.interface';
-import type { ITodosRepository } from '@nextjs-clean-architecture/core/application/repositories/todos.repository.interface';
+import { InputParseError } from '@repo/core/entities/errors/common';
+import type { Todo } from '@repo/core/entities/models/todo';
+import type { IInstrumentationService } from '@repo/core/application/services/instrumentation.service.interface';
+import type { ITodosRepository } from '@repo/core/application/repositories/todos.repository.interface';
 
 export type ICreateTodoUseCase = ReturnType<typeof createTodoUseCase>;
 

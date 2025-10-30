@@ -1,8 +1,8 @@
-import { IGetTodosForUserUseCase } from '@nextjs-clean-architecture/core/application/use-cases/todos/get-todos-for-user.use-case';
-import { UnauthenticatedError } from '@nextjs-clean-architecture/core/entities/errors/auth';
-import { Todo } from '@nextjs-clean-architecture/core/entities/models/todo';
-import { IInstrumentationService } from '@nextjs-clean-architecture/core/application/services/instrumentation.service.interface';
-import { IAuthenticationService } from '@nextjs-clean-architecture/core/application/services/authentication.service.interface';
+import { IGetTodosForUserUseCase } from '@repo/core/application/use-cases/todos/get-todos-for-user.use-case';
+import { UnauthenticatedError } from '@repo/core/entities/errors/auth';
+import { Todo } from '@repo/core/entities/models/todo';
+import { IInstrumentationService } from '@repo/core/application/services/instrumentation.service.interface';
+import { IAuthenticationService } from '@repo/core/application/services/authentication.service.interface';
 
 function presenter(
   todos: Todo[],

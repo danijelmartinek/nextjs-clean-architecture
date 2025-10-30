@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
-import { IToggleTodoUseCase } from '@nextjs-clean-architecture/core/application/use-cases/todos/toggle-todo.use-case';
-import { UnauthenticatedError } from '@nextjs-clean-architecture/core/entities/errors/auth';
-import { InputParseError } from '@nextjs-clean-architecture/core/entities/errors/common';
-import { Todo } from '@nextjs-clean-architecture/core/entities/models/todo';
-import { IInstrumentationService } from '@nextjs-clean-architecture/core/application/services/instrumentation.service.interface';
-import { IAuthenticationService } from '@nextjs-clean-architecture/core/application/services/authentication.service.interface';
+import { IToggleTodoUseCase } from '@repo/core/application/use-cases/todos/toggle-todo.use-case';
+import { UnauthenticatedError } from '@repo/core/entities/errors/auth';
+import { InputParseError } from '@repo/core/entities/errors/common';
+import { Todo } from '@repo/core/entities/models/todo';
+import { IInstrumentationService } from '@repo/core/application/services/instrumentation.service.interface';
+import { IAuthenticationService } from '@repo/core/application/services/authentication.service.interface';
 
 function presenter(
   todo: Todo,

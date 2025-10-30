@@ -4,8 +4,8 @@ import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 
 import { SESSION_COOKIE } from '@/config';
-import { UnauthenticatedError } from '@nextjs-clean-architecture/core/entities/errors/auth';
-import { InputParseError, NotFoundError } from '@nextjs-clean-architecture/core/entities/errors/common';
+import { UnauthenticatedError } from '@repo/core/entities/errors/auth';
+import { InputParseError, NotFoundError } from '@repo/core/entities/errors/common';
 import { getInjection } from '@/di/container';
 
 export async function createTodo(formData: FormData) {

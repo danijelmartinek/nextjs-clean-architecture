@@ -2,8 +2,8 @@ import { expect, it } from 'vitest';
 
 import { getInjection } from '@/di/container';
 
-import { UnauthorizedError } from '@nextjs-clean-architecture/core/entities/errors/auth';
-import { NotFoundError } from '@nextjs-clean-architecture/core/entities/errors/common';
+import { UnauthorizedError } from '@repo/core/entities/errors/auth';
+import { NotFoundError } from '@repo/core/entities/errors/common';
 
 const signInUseCase = getInjection('ISignInUseCase');
 const createTodoUseCase = getInjection('ICreateTodoUseCase');

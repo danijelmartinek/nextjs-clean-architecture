@@ -1,5 +1,5 @@
 {
-  "name": "@repo/core",
+  "name": "@repo/payload",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -9,10 +9,12 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "exports": {
+    ".": "./src/index.ts",
     "./package.json": "./package.json",
     "./*": "./src/*"
   },
   "dependencies": {
-    "zod": "^3.23.8"
+    "@payloadcms/db-sqlite": "^3.61.1",
+    "payload": "^3.61.1"
   }
 }

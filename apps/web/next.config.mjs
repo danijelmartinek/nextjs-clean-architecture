@@ -2,7 +2,7 @@ import { withSentryConfig } from '@sentry/nextjs';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@nextjs-clean-architecture/core'],
+  transpilePackages: ['@repo/core', '@repo/payload'],
 };
 
 export default withSentryConfig(nextConfig, {

@@ -1,7 +1,7 @@
 import { hashSync } from 'bcrypt-ts';
 
-import { IUsersRepository } from '@nextjs-clean-architecture/core/application/repositories/users.repository.interface';
-import type { CreateUser, User } from '@nextjs-clean-architecture/core/entities/models/user';
+import { IUsersRepository } from '@repo/core/application/repositories/users.repository.interface';
+import type { CreateUser, User } from '@repo/core/entities/models/user';
 import { PASSWORD_SALT_ROUNDS } from '@/config';
 
 export class MockUsersRepository implements IUsersRepository {

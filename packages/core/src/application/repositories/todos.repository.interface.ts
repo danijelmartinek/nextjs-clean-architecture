@@ -1,4 +1,4 @@
-import type { Todo, TodoInsert } from '@nextjs-clean-architecture/core/entities/models/todo';
+import type { Todo, TodoInsert } from '@repo/core/entities/models/todo';
 
 export interface ITodosRepository {
   createTodo(todo: TodoInsert, tx?: any): Promise<Todo>;

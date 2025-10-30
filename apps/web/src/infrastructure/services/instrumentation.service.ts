@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/nextjs';
 
-import { IInstrumentationService } from '@nextjs-clean-architecture/core/application/services/instrumentation.service.interface';
+import { IInstrumentationService } from '@repo/core/application/services/instrumentation.service.interface';
 
 export class InstrumentationService implements IInstrumentationService {
   startSpan<T>(

@@ -2,7 +2,7 @@ import { expect, it } from 'vitest';
 
 import { getInjection } from '@/di/container';
 import { SESSION_COOKIE } from '@/config';
-import { InputParseError } from '@nextjs-clean-architecture/core/entities/errors/common';
+import { InputParseError } from '@repo/core/entities/errors/common';
 
 const signInUseCase = getInjection('ISignInUseCase');
 const signOutController = getInjection('ISignOutController');

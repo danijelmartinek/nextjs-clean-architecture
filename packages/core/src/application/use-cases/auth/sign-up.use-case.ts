@@ -1,10 +1,10 @@
-import { AuthenticationError } from '@nextjs-clean-architecture/core/entities/errors/auth';
-import { Cookie } from '@nextjs-clean-architecture/core/entities/models/cookie';
-import { Session } from '@nextjs-clean-architecture/core/entities/models/session';
-import { User } from '@nextjs-clean-architecture/core/entities/models/user';
-import type { IInstrumentationService } from '@nextjs-clean-architecture/core/application/services/instrumentation.service.interface';
-import type { IAuthenticationService } from '@nextjs-clean-architecture/core/application/services/authentication.service.interface';
-import type { IUsersRepository } from '@nextjs-clean-architecture/core/application/repositories/users.repository.interface';
+import { AuthenticationError } from '@repo/core/entities/errors/auth';
+import { Cookie } from '@repo/core/entities/models/cookie';
+import { Session } from '@repo/core/entities/models/session';
+import { User } from '@repo/core/entities/models/user';
+import type { IInstrumentationService } from '@repo/core/application/services/instrumentation.service.interface';
+import type { IAuthenticationService } from '@repo/core/application/services/authentication.service.interface';
+import type { IUsersRepository } from '@repo/core/application/repositories/users.repository.interface';
 
 export type ISignUpUseCase = ReturnType<typeof signUpUseCase>;
 

@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
-import { ISignInUseCase } from '@nextjs-clean-architecture/core/application/use-cases/auth/sign-in.use-case';
-import { InputParseError } from '@nextjs-clean-architecture/core/entities/errors/common';
-import { Cookie } from '@nextjs-clean-architecture/core/entities/models/cookie';
-import type { IInstrumentationService } from '@nextjs-clean-architecture/core/application/services/instrumentation.service.interface';
+import { ISignInUseCase } from '@repo/core/application/use-cases/auth/sign-in.use-case';
+import { InputParseError } from '@repo/core/entities/errors/common';
+import { Cookie } from '@repo/core/entities/models/cookie';
+import type { IInstrumentationService } from '@repo/core/application/services/instrumentation.service.interface';
 
 const inputSchema = z.object({
   username: z.string().min(3).max(31),

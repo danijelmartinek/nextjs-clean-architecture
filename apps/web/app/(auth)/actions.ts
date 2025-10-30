@@ -3,13 +3,13 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-import { Cookie } from '@nextjs-clean-architecture/core/entities/models/cookie';
+import { Cookie } from '@repo/core/entities/models/cookie';
 import { SESSION_COOKIE } from '@/config';
-import { InputParseError } from '@nextjs-clean-architecture/core/entities/errors/common';
+import { InputParseError } from '@repo/core/entities/errors/common';
 import {
   AuthenticationError,
   UnauthenticatedError,
-} from '@nextjs-clean-architecture/core/entities/errors/auth';
+} from '@repo/core/entities/errors/auth';
 import { getInjection } from '@/di/container';
 
 export async function signUp(formData: FormData) {

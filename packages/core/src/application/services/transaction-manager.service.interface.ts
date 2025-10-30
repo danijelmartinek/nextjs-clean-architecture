@@ -1,4 +1,4 @@
-import type { ITransaction } from '@nextjs-clean-architecture/core/entities/models/transaction.interface';
+import type { ITransaction } from '@repo/core/entities/models/transaction.interface';
 
 export interface ITransactionManagerService {
   startTransaction<T>(

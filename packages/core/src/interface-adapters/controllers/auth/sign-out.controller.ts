@@ -1,8 +1,8 @@
-import { ISignOutUseCase } from '@nextjs-clean-architecture/core/application/use-cases/auth/sign-out.use-case';
-import { Cookie } from '@nextjs-clean-architecture/core/entities/models/cookie';
-import { InputParseError } from '@nextjs-clean-architecture/core/entities/errors/common';
-import type { IInstrumentationService } from '@nextjs-clean-architecture/core/application/services/instrumentation.service.interface';
-import { IAuthenticationService } from '@nextjs-clean-architecture/core/application/services/authentication.service.interface';
+import { ISignOutUseCase } from '@repo/core/application/use-cases/auth/sign-out.use-case';
+import { Cookie } from '@repo/core/entities/models/cookie';
+import { InputParseError } from '@repo/core/entities/errors/common';
+import type { IInstrumentationService } from '@repo/core/application/services/instrumentation.service.interface';
+import { IAuthenticationService } from '@repo/core/application/services/authentication.service.interface';
 
 export type ISignOutController = ReturnType<typeof signOutController>;
 

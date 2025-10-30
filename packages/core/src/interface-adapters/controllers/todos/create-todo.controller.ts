@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
-import { ICreateTodoUseCase } from '@nextjs-clean-architecture/core/application/use-cases/todos/create-todo.use-case';
-import { UnauthenticatedError } from '@nextjs-clean-architecture/core/entities/errors/auth';
-import { InputParseError } from '@nextjs-clean-architecture/core/entities/errors/common';
-import { Todo } from '@nextjs-clean-architecture/core/entities/models/todo';
-import { IInstrumentationService } from '@nextjs-clean-architecture/core/application/services/instrumentation.service.interface';
-import { IAuthenticationService } from '@nextjs-clean-architecture/core/application/services/authentication.service.interface';
-import { ITransactionManagerService } from '@nextjs-clean-architecture/core/application/services/transaction-manager.service.interface';
+import { ICreateTodoUseCase } from '@repo/core/application/use-cases/todos/create-todo.use-case';
+import { UnauthenticatedError } from '@repo/core/entities/errors/auth';
+import { InputParseError } from '@repo/core/entities/errors/common';
+import { Todo } from '@repo/core/entities/models/todo';
+import { IInstrumentationService } from '@repo/core/application/services/instrumentation.service.interface';
+import { IAuthenticationService } from '@repo/core/application/services/authentication.service.interface';
+import { ITransactionManagerService } from '@repo/core/application/services/transaction-manager.service.interface';
 
 function presenter(
   todos: Todo[],

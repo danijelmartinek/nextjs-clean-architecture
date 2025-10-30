@@ -60,9 +60,8 @@ layers depend only on layers **below them**, but not above.
   - `app` - pages, server actions, and UI components that consume the domain
     logic
   - `di` - Dependency Injection container and modules wiring the app together
-  - `drizzle` - database client initialisation, schema, and migrations
   - `src/infrastructure` - concrete implementations of repositories and
-    services that integrate with framework and database tooling
+    services that integrate with framework and shared tooling
   - `tests` - unit tests for the web app, mirroring the structure of the
     reusable core package
   - `.eslintrc.json`, `vitest.config.ts`, `tailwind.config.ts`, etc. - tooling
@@ -73,6 +72,8 @@ layers depend only on layers **below them**, but not above.
   - `entities` - **Entities Layer** - domain models and custom errors
   - `interface-adapters` - **Interface Adapters Layer** - controllers used by
     the web app (or any other consumer)
+- `packages/payload` - reusable Payload CMS configuration and utilities for
+  data access and Lucia session storage shared across applications
 - `turbo.json` & root `package.json` - Turborepo setup coordinating workspaces
 
 ## Layers explanation

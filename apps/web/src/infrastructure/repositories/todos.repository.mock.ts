@@ -1,5 +1,5 @@
-import { ITodosRepository } from '@nextjs-clean-architecture/core/application/repositories/todos.repository.interface';
-import { Todo, TodoInsert } from '@nextjs-clean-architecture/core/entities/models/todo';
+import { ITodosRepository } from '@repo/core/application/repositories/todos.repository.interface';
+import { Todo, TodoInsert } from '@repo/core/entities/models/todo';
 
 export class MockTodosRepository implements ITodosRepository {
   private _todos: Todo[];

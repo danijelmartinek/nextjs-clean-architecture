@@ -1,11 +1,11 @@
 import { compare } from 'bcrypt-ts';
 
-import { IAuthenticationService } from '@nextjs-clean-architecture/core/application/services/authentication.service.interface';
-import { UnauthenticatedError } from '@nextjs-clean-architecture/core/entities/errors/auth';
-import { User } from '@nextjs-clean-architecture/core/entities/models/user';
-import { Session, sessionSchema } from '@nextjs-clean-architecture/core/entities/models/session';
-import { type IUsersRepository } from '@nextjs-clean-architecture/core/application/repositories/users.repository.interface';
-import { Cookie } from '@nextjs-clean-architecture/core/entities/models/cookie';
+import { IAuthenticationService } from '@repo/core/application/services/authentication.service.interface';
+import { UnauthenticatedError } from '@repo/core/entities/errors/auth';
+import { User } from '@repo/core/entities/models/user';
+import { Session, sessionSchema } from '@repo/core/entities/models/session';
+import { type IUsersRepository } from '@repo/core/application/repositories/users.repository.interface';
+import { Cookie } from '@repo/core/entities/models/cookie';
 import { SESSION_COOKIE } from '@/config';
 
 export class MockAuthenticationService implements IAuthenticationService {

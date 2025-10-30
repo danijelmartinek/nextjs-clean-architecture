@@ -5,8 +5,8 @@ import { SESSION_COOKIE } from '@/config';
 import {
   AuthenticationError,
   UnauthenticatedError,
-} from '@nextjs-clean-architecture/core/entities/errors/auth';
-import { Todo } from '@nextjs-clean-architecture/core/entities/models/todo';
+} from '@repo/core/entities/errors/auth';
+import { Todo } from '@repo/core/entities/models/todo';
 import {
   Card,
   CardContent,
