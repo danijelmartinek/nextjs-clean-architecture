@@ -1,10 +1,13 @@
 import { fileURLToPath } from 'url';
+import { createRequire } from 'node:module';
 
 import { withSentryConfig } from '@sentry/nextjs';
 
 const compilerRuntimePolyfill = fileURLToPath(
   new URL('./polyfills/react-compiler-runtime.ts', import.meta.url),
 );
+const require = createRequire(import.meta.url);
+const payloadViewsEntry = require.resolve('@payloadcms/next/views');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -28,6 +31,7 @@ const nextConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       'react/compiler-runtime': compilerRuntimePolyfill,
+      '@payloadcms/next/views': payloadViewsEntry,
     };
 
     if (isServer) {
