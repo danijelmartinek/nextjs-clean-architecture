@@ -32,21 +32,29 @@ describe('Payload admin layout', () => {
   it('renders the layout with the Payload config and import map', async () => {
     const module = await import('../../../../app/(payload)/admin/layout');
     const { getPayloadClient, getPayloadImportMap } = await import('@repo/payload');
-    const { RootLayout, handleServerFunctions } = await import('@payloadcms/next/layouts');
+    const { RootLayout } = await import('@payloadcms/next/layouts');
 
     const output = await module.default({ children: 'content' });
 
     expect(getPayloadClient).toHaveBeenCalledTimes(1);
     expect(getPayloadImportMap).toHaveBeenCalledTimes(1);
-    expect(handleServerFunctions).toBe(serverFunctionMock);
-
     const [[layoutArgs]] = (RootLayout as unknown as Mock).mock.calls;
+    const configPromise = layoutArgs.config;
 
-    expect(await layoutArgs.config).toBe(payloadConfig);
+    expect(await configPromise).toBe(payloadConfig);
     expect(await layoutArgs.importMap).toBe(importMap);
     expect(layoutArgs.children).toBe('content');
     expect(layoutArgs.htmlProps).toEqual({ lang: 'en' });
-    expect(layoutArgs.serverFunction).toBe(serverFunctionMock);
+    expect(typeof layoutArgs.serverFunction).toBe('function');
+    const request = { args: { test: true }, name: 'example' };
+    const result = await layoutArgs.serverFunction(request as never);
+
+    expect(serverFunctionMock).toHaveBeenCalledWith({
+      ...request,
+      config: configPromise,
+      importMap,
+    });
+    expect(result).toBe('server-function');
     expect(output).toBe('layout-view');
   });
 });

@@ -13,7 +13,15 @@ export default async function PayloadAdminLayout({
 }) {
   const configPromise = getPayloadClient().then((payload) => payload.config);
   const importMap = await getPayloadImportMap();
-  const serverFunction = handleServerFunctions as unknown as ServerFunctionClient;
+  const serverFunction: ServerFunctionClient = async (request) => {
+    'use server';
+
+    return handleServerFunctions({
+      ...request,
+      config: configPromise,
+      importMap,
+    });
+  };
 
   return RootLayout({
     children,
