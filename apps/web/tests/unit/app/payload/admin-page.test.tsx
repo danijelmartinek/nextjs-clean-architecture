@@ -5,7 +5,7 @@ const payloadConfig = { admin: { route: '/admin' } };
 const importMap = { imports: { test: '/foo.js' } };
 
 vi.mock('@repo/payload', () => ({
-  getPayloadAdminConfig: vi.fn(() => Promise.resolve(payloadConfig)),
+  getPayloadClient: vi.fn(() => Promise.resolve({ config: payloadConfig })),
   getPayloadImportMap: vi.fn(() => Promise.resolve(importMap)),
 }));
 
@@ -22,12 +22,12 @@ afterEach(() => {
 describe('Payload admin page', () => {
   it('generates metadata using the Payload configuration', async () => {
     const module = await import('../../../../app/(payload)/admin/[[...segments]]/page');
-    const { getPayloadAdminConfig } = await import('@repo/payload');
+    const { getPayloadClient } = await import('@repo/payload');
     const { generatePageMetadata } = await import('@payloadcms/next/views');
 
     const metadata = await module.generateMetadata({ params: {}, searchParams: { locale: 'en' } });
 
-    expect(getPayloadAdminConfig).toHaveBeenCalledTimes(1);
+    expect(getPayloadClient).toHaveBeenCalledTimes(1);
 
     const [[metadataArgs]] = (generatePageMetadata as unknown as Mock).mock.calls;
 
@@ -39,7 +39,7 @@ describe('Payload admin page', () => {
 
   it('renders the admin view with normalized params', async () => {
     const module = await import('../../../../app/(payload)/admin/[[...segments]]/page');
-    const { getPayloadAdminConfig, getPayloadImportMap } = await import('@repo/payload');
+    const { getPayloadClient, getPayloadImportMap } = await import('@repo/payload');
     const { RootPage } = await import('@payloadcms/next/views');
 
     const result = await module.default({
@@ -47,7 +47,7 @@ describe('Payload admin page', () => {
       searchParams: { locale: 'en', unset: undefined },
     });
 
-    expect(getPayloadAdminConfig).toHaveBeenCalledTimes(1);
+    expect(getPayloadClient).toHaveBeenCalledTimes(1);
     expect(getPayloadImportMap).toHaveBeenCalledTimes(1);
 
     expect(result?.type).toBe(RootPage);

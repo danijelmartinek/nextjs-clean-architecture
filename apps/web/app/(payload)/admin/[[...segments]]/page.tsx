@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { createElement, type JSX } from 'react';
 import { generatePageMetadata, RootPage } from '@payloadcms/next/views';
-import { getPayloadAdminConfig, getPayloadImportMap } from '@repo/payload';
+import { getPayloadClient, getPayloadImportMap } from '@repo/payload';
 
 type AdminPageParams = {
   segments?: string[];
@@ -40,7 +40,7 @@ export async function generateMetadata({
   searchParams,
 }: AdminPageProps): Promise<Metadata> {
   return generatePageMetadata({
-    config: getPayloadAdminConfig(),
+    config: getPayloadClient().then((payload) => payload.config),
     params: Promise.resolve(params ?? {}),
     searchParams: Promise.resolve(normalizeSearchParams(searchParams)),
   });
@@ -50,7 +50,7 @@ export default async function PayloadAdminPage({
   params,
   searchParams,
 }: AdminPageProps): Promise<JSX.Element> {
-  const configPromise = getPayloadAdminConfig();
+  const configPromise = getPayloadClient().then((payload) => payload.config);
   const importMap = await getPayloadImportMap();
 
   return createElement(RootPage, {

@@ -7,11 +7,7 @@ import {
 import type { ServerFunctionClient } from 'payload';
 import { metadata as payloadMetadata, RootLayout } from '@payloadcms/next/layouts';
 import { handleServerFunctions } from '@payloadcms/next/layouts';
-import {
-  getPayloadAdminConfig,
-  getPayloadClient,
-  getPayloadImportMap,
-} from '@repo/payload';
+import { getPayloadClient, getPayloadImportMap } from '@repo/payload';
 
 export const metadata = payloadMetadata;
 
@@ -20,8 +16,8 @@ export default async function PayloadAdminLayout({
 }: {
   children: ReactNode;
 }) {
-  const adminConfigPromise = getPayloadAdminConfig();
-  const configPromise = getPayloadClient().then((payload) => payload.config);
+  const payloadPromise = getPayloadClient();
+  const configPromise = payloadPromise.then((payload) => payload.config);
   const importMap = await getPayloadImportMap();
   const serverFunction: ServerFunctionClient = async (request) => {
     'use server';
@@ -39,7 +35,7 @@ export default async function PayloadAdminLayout({
   return createElement(
     LayoutComponent,
     {
-      config: adminConfigPromise,
+      config: configPromise,
       htmlProps: { lang: 'en' },
       importMap,
       serverFunction,

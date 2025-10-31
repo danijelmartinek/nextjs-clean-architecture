@@ -13,54 +13,6 @@ type PayloadModule = typeof import('payload');
 type BuildConfigInput = Parameters<PayloadModule['buildConfig']>[0];
 
 let configPromise: Promise<SanitizedConfig> | null = null;
-let adminConfigPromise: Promise<SanitizedConfig> | null = null;
-
-function sanitizeForAdmin(
-  value: unknown,
-  seen = new WeakMap<object, unknown>(),
-): unknown {
-  if (typeof value === 'function' || typeof value === 'symbol') {
-    return undefined;
-  }
-
-  if (value === null || typeof value !== 'object') {
-    return value;
-  }
-
-  if (seen.has(value as object)) {
-    return seen.get(value as object);
-  }
-
-  if (Array.isArray(value)) {
-    const sanitizedArray: unknown[] = [];
-
-    seen.set(value, sanitizedArray);
-
-    for (const item of value) {
-      const sanitizedItem = sanitizeForAdmin(item, seen);
-
-      if (typeof sanitizedItem !== 'undefined') {
-        sanitizedArray.push(sanitizedItem);
-      }
-    }
-
-    return sanitizedArray;
-  }
-
-  const sanitizedObject: Record<string, unknown> = {};
-
-  seen.set(value as object, sanitizedObject);
-
-  for (const [key, entryValue] of Object.entries(value as Record<string, unknown>)) {
-    const sanitizedEntry = sanitizeForAdmin(entryValue, seen);
-
-    if (typeof sanitizedEntry !== 'undefined') {
-      sanitizedObject[key] = sanitizedEntry;
-    }
-  }
-
-  return sanitizedObject;
-}
 
 async function buildPayloadConfig(): Promise<SanitizedConfig> {
   const [{ sqliteAdapter }, payloadModule] = await Promise.all([
@@ -105,16 +57,6 @@ export async function getPayloadConfig(): Promise<SanitizedConfig> {
   }
 
   return configPromise;
-}
-
-export async function getPayloadAdminConfig(): Promise<SanitizedConfig> {
-  if (!adminConfigPromise) {
-    adminConfigPromise = getPayloadConfig().then((config) =>
-      sanitizeForAdmin(config) as SanitizedConfig,
-    );
-  }
-
-  return adminConfigPromise;
 }
 
 export async function getPayloadImportMap(): Promise<ImportMap> {

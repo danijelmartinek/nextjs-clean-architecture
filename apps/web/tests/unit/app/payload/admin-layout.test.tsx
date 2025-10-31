@@ -1,11 +1,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 const payloadConfig = { admin: { route: '/admin' }, permissions: {} };
-const adminConfig = { admin: { route: '/admin' } };
 const importMap = { imports: { test: '/foo.js' } };
 
 vi.mock('@repo/payload', () => ({
-  getPayloadAdminConfig: vi.fn(() => Promise.resolve(adminConfig)),
   getPayloadClient: vi.fn(() => Promise.resolve({ config: payloadConfig })),
   getPayloadImportMap: vi.fn(() => Promise.resolve(importMap)),
 }));
@@ -32,14 +30,11 @@ describe('Payload admin layout', () => {
 
   it('renders the layout with the Payload config and import map', async () => {
     const module = await import('../../../../app/(payload)/admin/layout');
-    const { getPayloadAdminConfig, getPayloadClient, getPayloadImportMap } = await import(
-      '@repo/payload'
-    );
+    const { getPayloadClient, getPayloadImportMap } = await import('@repo/payload');
     const { RootLayout } = await import('@payloadcms/next/layouts');
 
     const output = await module.default({ children: 'content' });
 
-    expect(getPayloadAdminConfig).toHaveBeenCalledTimes(1);
     expect(getPayloadClient).toHaveBeenCalledTimes(1);
     expect(getPayloadImportMap).toHaveBeenCalledTimes(1);
     expect(output?.type).toBe(RootLayout);
@@ -48,7 +43,7 @@ describe('Payload admin layout', () => {
       output?.props ?? {};
 
     expect(typeof config?.then).toBe('function');
-    expect(await config).toBe(adminConfig);
+    expect(await config).toBe(payloadConfig);
     expect(resolvedImportMap).toBe(importMap);
     expect(children).toBe('content');
     expect(htmlProps).toEqual({ lang: 'en' });
