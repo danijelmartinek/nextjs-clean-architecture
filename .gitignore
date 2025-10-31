@@ -9,6 +9,7 @@
 # testing
 /coverage
 /tests/coverage
+/packages/core/dist
 
 # next.js
 /.next/
